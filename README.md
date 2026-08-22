@@ -71,6 +71,12 @@ API?](https://woz-api.nl/artikelen/woz-waardeloket-vs-lv-woz-vs-woz-drie-werelde
   gemeente](https://woz-api.nl/woz-waarde-ontwikkeling), met downloadbare dataset
 - English: [WOZ value API for Dutch properties](https://woz-api.nl/woz-value-api)
 
+## Over WozApi
+
+WozApi levert WOZ-, BAG- en kadastrale data via 1 endpoint, voor developers, proptech, fintech,
+makelaardij, notariaat en datateams. Bekijk de [live demo](https://woz-api.nl) of lees de
+[artikelen over WOZ-data](https://woz-api.nl/artikelen).
+
 ## Licentie
 
 MIT
