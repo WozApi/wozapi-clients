@@ -1,0 +1,28 @@
+{
+  "name": "wozapi",
+  "version": "1.0.0",
+  "description": "WOZ-waarde, BAG-adresgegevens en kadastrale percelen van elk Nederlands adres via 1 endpoint. Client voor woz-api.nl.",
+  "keywords": [
+    "woz",
+    "woz-api",
+    "woz-waarde",
+    "bag",
+    "kadaster",
+    "nederland",
+    "vastgoed",
+    "proptech"
+  ],
+  "homepage": "https://woz-api.nl",
+  "license": "MIT",
+  "type": "module",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
+}
