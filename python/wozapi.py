@@ -10,7 +10,7 @@ Snel starten:
 
     client = WozApi("jouw-api-key")
     adres = client.adres("Spuistraat 36C, 1012 TT Amsterdam")
-    print(adres["wozWaarden"][0]["vastgesteldeWaarde"])
+    print(adres["woz"][0]["vastgesteldeWaarde"])
 
 Een gratis account op https://woz-api.nl geeft 10 credits. 1 credit is 1 uniek adres;
 hetzelfde adres binnen 7 dagen opnieuw opvragen kost geen extra credit.

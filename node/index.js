@@ -10,7 +10,7 @@
  *
  *   const client = new WozApi('jouw-api-key');
  *   const adres = await client.adres('Spuistraat 36C, 1012 TT Amsterdam');
- *   console.log(adres.wozWaarden[0].vastgesteldeWaarde);
+ *   console.log(adres.woz[0].vastgesteldeWaarde);
  *
  * Een gratis account op https://woz-api.nl geeft 10 credits. 1 credit is 1 uniek adres;
  * hetzelfde adres binnen 7 dagen opnieuw opvragen kost geen extra credit.

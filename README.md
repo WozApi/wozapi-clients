@@ -20,7 +20,7 @@ from wozapi import WozApi
 
 client = WozApi("jouw-api-key")
 adres = client.adres("Spuistraat 36C, 1012 TT Amsterdam")
-print(adres["wozWaarden"][0]["vastgesteldeWaarde"])
+print(adres["woz"][0]["vastgesteldeWaarde"])
 ```
 
 ```javascript
@@ -28,7 +28,7 @@ import { WozApi } from 'wozapi';
 
 const client = new WozApi('jouw-api-key');
 const adres = await client.adres('Spuistraat 36C, 1012 TT Amsterdam');
-console.log(adres.wozWaarden[0].vastgesteldeWaarde);
+console.log(adres.woz[0].vastgesteldeWaarde);
 ```
 
 ```csharp
@@ -44,10 +44,11 @@ kost geen extra credit.
 
 - **WOZ-waarden** voor alle beschikbare peildata, dus ook de historie en niet alleen het
   laatste cijfer.
-- **BAG-adresgegevens** uit de Basisregistratie Adressen en Gebouwen, inclusief bouwjaar en
-  oppervlakte.
-- **Kadastrale percelen** met oppervlakte, en perceelgrenzen als GeoJSON wanneer je daar om
-  vraagt.
+- **BAG-adresgegevens** uit de Basisregistratie Adressen en Gebouwen: gestandaardiseerd adres
+  met de nummeraanduiding- en adresseerbaarobject-identificatie.
+- **Kadastrale percelen** met oppervlakte in m2, en perceelgrenzen als GeoJSON wanneer je daar
+  om vraagt.
+- **Grondoppervlakte** van het WOZ-object, indien bekend.
 
 ## Waarom niet rechtstreeks bij de bron?
 
@@ -64,7 +65,10 @@ API?](https://woz-api.nl/artikelen/woz-waardeloket-vs-lv-woz-vs-woz-drie-werelde
 
 ## Documentatie en context
 
-- API-referentie: [woz-api.nl/swagger](https://woz-api.nl/swagger/index.html)
+- Technische documentatie: [wozapi.github.io](https://wozapi.github.io/), met
+  [aan de slag](https://wozapi.github.io/getting-started.html) en de volledige
+  [veldreferentie](https://wozapi.github.io/reference.html)
+- OpenAPI-definitie: [woz-api.nl/swagger](https://woz-api.nl/swagger/index.html)
 - Prijzen per credit: [woz-api.nl/woz-api-prijs](https://woz-api.nl/woz-api-prijs)
 - Zonder code werken: [WOZ-waarden in je Excel](https://woz-api.nl/woz-waarden-in-excel)
 - Open cijfers: [WOZ-waarde per provincie en

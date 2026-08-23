@@ -16,7 +16,7 @@ namespace WozApi.Client;
 /// <code>
 /// var client = new WozApiClient(httpClient, "jouw-api-key");
 /// using var adres = await client.AdresAsync("Spuistraat 36C, 1012 TT Amsterdam");
-/// var waarde = adres.RootElement.GetProperty("wozWaarden")[0].GetProperty("vastgesteldeWaarde");
+/// var waarde = adres.RootElement.GetProperty("woz")[0].GetProperty("vastgesteldeWaarde");
 /// </code>
 /// </summary>
 public sealed class WozApiClient

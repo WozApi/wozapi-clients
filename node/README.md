@@ -19,7 +19,7 @@ const client = new WozApi('jouw-api-key');
 
 try {
   const adres = await client.adres('Spuistraat 36C, 1012 TT Amsterdam');
-  for (const woz of adres.wozWaarden) {
+  for (const woz of adres.woz) {
     console.log(woz.peildatum, woz.vastgesteldeWaarde);
   }
 } catch (fout) {

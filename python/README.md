@@ -21,7 +21,7 @@ client = WozApi("jouw-api-key")
 
 try:
     adres = client.adres("Spuistraat 36C, 1012 TT Amsterdam")
-    for woz in adres["wozWaarden"]:
+    for woz in adres["woz"]:
         print(woz["peildatum"], woz["vastgesteldeWaarde"])
 except WozApiError as fout:
     print(fout.status, fout.bericht)
