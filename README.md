@@ -1,48 +1,96 @@
-# WozApi clientlibraries
+# WOZ API clients
 
-Dunne, afhankelijkheidsvrije wrappers rond de WOZ API van [woz-api.nl](https://woz-api.nl):
-WOZ-waarde, BAG-adresgegevens en kadastrale percelen van elk Nederlands adres via 1 endpoint.
+Officiële clientlibraries voor de [WOZ API van woz-api.nl](https://woz-api.nl): de
+**WOZ-waarde**, **BAG-adresgegevens** en **kadastrale percelen** van elk Nederlands adres in
+1 JSON-response.
 
-| Taal | Map | Pakketnaam (gereserveerd) |
+| Taal | Map | Pakketnaam |
 |---|---|---|
 | Python | [`python/`](python) | `wozapi` |
 | Node.js en TypeScript | [`node/`](node) | `wozapi` |
 | .NET | [`dotnet/`](dotnet) | `WozApi.Client` |
 
-## Waarom deze map bestaat
+Alle drie zijn dun en **zonder externe afhankelijkheden**: alleen de standaardbibliotheek van
+de taal.
 
-Twee redenen, in deze volgorde:
+## Snel starten
 
-1. **Developers verwachten een client.** Wie een API beoordeelt, kijkt of er een library is.
-   Een kopieerbaar codevoorbeeld in de eigen taal verlaagt de drempel tot de eerste geslaagde
-   call meetbaar.
-2. **Zichtbaarheid.** Op de zoekterm "woz api" staan `kadaster.github.io` en `github.com`
-   allebei in de Google-top-10 met documentatie. Een publieke repository plus pakketpagina's
-   op PyPI, npm en NuGet zijn extra vindplaatsen voor precies onze doelgroep, en leveren
-   verwijzende domeinen op waar het domein er nu vrijwel geen heeft.
+```python
+from wozapi import WozApi
 
-## Status
+client = WozApi("jouw-api-key")
+adres = client.adres("Spuistraat 36C, 1012 TT Amsterdam")
+print(adres["woz"][0]["vastgesteldeWaarde"])
+```
 
-**Gepubliceerd op GitHub**: https://github.com/WozApi/wozapi-clients (publiek, MIT, topics
-ingesteld, homepage naar woz-api.nl, commits op naam van WozApi en niet op een persoon). Staat
-onder de organisatie WozApi, niet onder een persoonlijk account: dat leest als product en de
-org-pagina is een extra merkentiteit. Deze map blijft de bron van waarheid; wijzig hier en push
-daarna naar die repo.
+```javascript
+import { WozApi } from 'wozapi';
 
-### Nog niet gedaan: pakketregisters
+const client = new WozApi('jouw-api-key');
+const adres = await client.adres('Spuistraat 36C, 1012 TT Amsterdam');
+console.log(adres.woz[0].vastgesteldeWaarde);
+```
 
-Publiceren op PyPI, npm en NuGet vergt API-tokens die niet op deze machine staan (`npm whoami`
-geeft ENEEDAUTH, `~/.pypirc` bestaat niet). Zie `docs/SEO_UITVOERINGSPLAN.md`, werkstroom C2.
+```csharp
+var client = new WozApiClient(httpClient, "jouw-api-key");
+using var adres = await client.AdresAsync("Spuistraat 36C, 1012 TT Amsterdam");
+```
 
-## Gemeenschappelijke uitgangspunten
+Een API-key maak je aan op [woz-api.nl](https://woz-api.nl). Een gratis account geeft
+**10 credits**; 1 credit is 1 uniek adres, en hetzelfde adres binnen 7 dagen opnieuw opvragen
+kost geen extra credit.
 
-- Geen externe afhankelijkheden: alleen de standaardbibliotheek van de taal.
-- Authenticatie via de header `X-Api-Key`. Bouw je als softwareleverancier de
-  [OAuth-koppeling](https://wozapi.github.io/oauth.html) (klanten met een eigen
-  WozApi-account), stuur dan het access token als `Authorization: Bearer` mee; een
-  accessToken-optie in deze clients staat op de planning.
-- Eén duidelijke foutsoort per taal, met de HTTP-status en de servermelding erin.
-- Nederlandse veldnamen uit de API blijven ongewijzigd; vertalen zou alleen verwarring geven
-  bij het lezen van de documentatie.
-- Een gratis account geeft 10 credits. 1 credit is 1 uniek adres; hetzelfde adres binnen
-  7 dagen opnieuw opvragen is gratis.
+## Voor softwareleveranciers: OAuth-koppeling
+
+Bouw je software waarin JOUW klanten WOZ-waarden zien? Naast de API-key is er een
+OAuth-koppeling (authorization code met PKCE): elke klant koppelt een eigen WozApi-account en
+betaalt eigen credits, jij stuurt het access token mee als `Authorization: Bearer`. Voor de
+leverancier is de koppeling gratis. Technische referentie:
+[wozapi.github.io/oauth.html](https://wozapi.github.io/oauth.html), productuitleg en aanvraag:
+[woz-api.nl/woz-api-koppeling](https://woz-api.nl/woz-api-koppeling). Een accessToken-optie in
+deze clients staat op de planning; tot die tijd zet je de header zelf.
+
+## Wat je terugkrijgt
+
+- **WOZ-waarden** voor alle beschikbare peildata, dus ook de historie en niet alleen het
+  laatste cijfer.
+- **BAG-adresgegevens** uit de Basisregistratie Adressen en Gebouwen: gestandaardiseerd adres
+  met de nummeraanduiding- en adresseerbaarobject-identificatie.
+- **Kadastrale percelen** met oppervlakte in m2, en perceelgrenzen als GeoJSON wanneer je daar
+  om vraagt.
+- **Grondoppervlakte** van het WOZ-object, indien bekend.
+
+## Waarom niet rechtstreeks bij de bron?
+
+Dat kan meestal niet, en dat is de reden dat deze API bestaat.
+
+- De **WOZ API Bevragen** van het Kadaster (Haal Centraal) is er alleen voor gemeenten en
+  vereist een OIN plus een PKIoverheid-certificaat.
+- Het **WOZ-waardeloket** is een raadpleegsite zonder API, en staat massaal of geautomatiseerd
+  onttrekken van gegevens niet toe.
+- **WOZ+** van het Kadaster is een licentieproduct met een aansluittraject.
+
+Meer achtergrond: [Heeft het WOZ-waardeloket een
+API?](https://woz-api.nl/artikelen/woz-waardeloket-vs-lv-woz-vs-woz-drie-werelden-achter-een-woz-waarde)
+
+## Documentatie en context
+
+- Technische documentatie: [wozapi.github.io](https://wozapi.github.io/), met
+  [aan de slag](https://wozapi.github.io/getting-started.html) en de volledige
+  [veldreferentie](https://wozapi.github.io/reference.html)
+- OpenAPI-definitie: [woz-api.nl/swagger](https://woz-api.nl/swagger/index.html)
+- Prijzen per credit: [woz-api.nl/woz-api-prijs](https://woz-api.nl/woz-api-prijs)
+- Zonder code werken: [WOZ-waarden in je Excel](https://woz-api.nl/woz-waarden-in-excel)
+- Open cijfers: [WOZ-waarde per provincie en
+  gemeente](https://woz-api.nl/woz-waarde-ontwikkeling), met downloadbare dataset
+- English: [WOZ value API for Dutch properties](https://woz-api.nl/woz-value-api)
+
+## Over WozApi
+
+WozApi levert WOZ-, BAG- en kadastrale data via 1 endpoint, voor developers, proptech, fintech,
+makelaardij, notariaat en datateams. Bekijk de [live demo](https://woz-api.nl) of lees de
+[artikelen over WOZ-data](https://woz-api.nl/artikelen).
+
+## Licentie
+
+MIT
