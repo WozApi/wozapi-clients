@@ -1,3 +1,5 @@
+<img src="assets/logo.png" alt="" width="76" align="right">
+
 # WOZ API clients
 
 Officiële clientlibraries voor de [WOZ API van woz-api.nl](https://woz-api.nl): de
