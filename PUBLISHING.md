@@ -63,6 +63,21 @@ De workflow publiceert met `--provenance`, wat het pakket aantoonbaar aan deze r
 koppelt. Dat werkt alleen omdat `repository` in `node/package.json` staat; zonder dat veld
 weigert npm.
 
+**Dit token is tijdelijk.** npm ondersteunt sinds 2025 ook trusted publishing via OIDC, maar in
+tegenstelling tot PyPI kent het geen "pending publisher": de instelling zit onder de
+package-settings en die bestaan pas als het pakket er is. Die ene eerste publicatie heeft dus
+een token nodig; daarna kan het weg.
+
+Na de eerste geslaagde publicatie:
+
+1. npmjs.com -> Packages -> `wozapi` -> **Settings** -> **Trusted publishing**
+2. Voeg toe: organization `WozApi`, repository `wozapi-clients`, workflow `publish.yml`,
+   environment `publiceren`
+3. Haal het secret weg: `gh secret delete NPM_TOKEN --repo WozApi/wozapi-clients`
+4. Trek het token in op npmjs.com onder Access Tokens
+
+Daarna staat er in deze repo geen enkele registry-sleutel meer, net als bij PyPI en NuGet.
+
 ## Versie verhogen
 
 Op vier plekken, en ze moeten gelijk blijven:
