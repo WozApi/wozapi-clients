@@ -85,6 +85,12 @@ jobs:
     if: inputs.registries == 'alle' || inputs.registries == 'nuget'
     runs-on: ubuntu-latest
     environment: publiceren
+    permissions:
+      # Trusted publishing, net als bij PyPI: NuGet wisselt dit OIDC-token in voor een sleutel
+      # die enkele minuten geldig is. Er staat dus geen NUGET_API_KEY meer in de secrets, en
+      # NuGet raadt losse API-keys voor automatisch publiceren inmiddels zelf af.
+      id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
@@ -93,11 +99,16 @@ jobs:
       - name: Pakket bouwen
         working-directory: dotnet
         run: dotnet pack -c Release -o ../nupkgs
+      - name: Tijdelijke sleutel ophalen
+        uses: NuGet/login@v1
+        id: nuget-login
+        with:
+          user: Harmenvdm
       - name: Publiceren naar NuGet
         # --skip-duplicate zodat een herhaalde run op een bestaande versie niet hard faalt maar
         # hem overslaat. Zonder dat breekt elke tweede poging op een versie die er al staat.
         run: |
           dotnet nuget push "nupkgs/*.nupkg" \
-            --api-key "${{ secrets.NUGET_API_KEY }}" \
+            --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}" \
             --source https://api.nuget.org/v3/index.json \
             --skip-duplicate
