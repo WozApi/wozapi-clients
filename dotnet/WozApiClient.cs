@@ -21,7 +21,7 @@ namespace WozApi.Client;
 /// </summary>
 public sealed class WozApiClient
 {
-  private const string Versie = "1.0.0";
+  private const string Versie = "1.0.1";
   private const string StandaardBasisUrl = "https://woz-api.nl";
 
   private readonly HttpClient _http;
