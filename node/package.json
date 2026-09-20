@@ -13,6 +13,15 @@
     "proptech"
   ],
   "homepage": "https://woz-api.nl",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WozApi/wozapi-clients.git",
+    "directory": "node"
+  },
+  "bugs": {
+    "url": "https://github.com/WozApi/wozapi-clients/issues"
+  },
+  "author": "WozApi <info@woz-api.nl> (https://woz-api.nl)",
   "license": "MIT",
   "type": "module",
   "main": "index.js",
