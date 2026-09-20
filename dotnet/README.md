@@ -80,20 +80,6 @@ saldo staat in de responseheader `X-Credits-Remaining` en is ook op te vragen me
 
 MIT.
 
-## Waarom niet rechtstreeks bij de bron?
-
-De landelijke voorziening WOZ levert alleen aan afnemers die de wet aanwijst: gemeenten,
-waterschappen en de Belastingdienst, bestuursorganen met een wettelijke taak, en als derde groep
-verzekeraars, hypotheekverstrekkers en door NRVT gecertificeerde validatie-instituten. Voor de
-WOZ API Bevragen van het Kadaster geldt daarbovenop dat een OIN en een PKIoverheid-certificaat
-verplicht zijn. Hoor je daar niet bij, dan is er geen betaalde route naar een eigen aansluiting.
-Het WOZ-waardeloket is een raadpleegsite zonder API en staat geautomatiseerd uitlezen niet toe.
-
-Bronnen, gecontroleerd op 20 september 2026:
-[artikel 37a Wet WOZ](https://wetten.overheid.nl/BWBR0007119/2024-01-01/0/HoofdstukVI/Artikel37a/),
-[Kadaster WOZ voor afnemers](https://www.kadaster.nl/zakelijk/registraties/landelijke-voorzieningen/woz/woz-voor-afnemers)
-en [WOZ API Bevragen](https://www.kadaster.nl/zakelijk/producten/adressen-en-gebouwen/woz-api-bevragen).
-
 ## Wat het kost
 
 EUR 0,59 per credit bij 100 credits, aflopend tot EUR 0,35 bij 1.000 credits, excl. btw. Geen
