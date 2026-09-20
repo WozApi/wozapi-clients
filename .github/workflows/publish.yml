@@ -1,0 +1,103 @@
+name: publiceer clients
+
+# Handmatig starten, nooit vanzelf. Een pakketversie is onherroepelijk: eenmaal gepubliceerd kun
+# je een versienummer niet hergebruiken, ook niet na intrekken. Daarom geen trigger op push of
+# tag, maar een knop met een expliciete bevestiging.
+on:
+  workflow_dispatch:
+    inputs:
+      registries:
+        description: "Welke registries publiceren"
+        required: true
+        default: alle
+        type: choice
+        options: [alle, pypi, npm, nuget]
+      bevestig:
+        description: 'Typ PUBLICEER om te bevestigen (versies zijn onherroepelijk)'
+        required: true
+        type: string
+
+jobs:
+  controleer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Bevestiging controleren
+        run: |
+          if [ "${{ inputs.bevestig }}" != "PUBLICEER" ]; then
+            echo "Niet bevestigd. Typ PUBLICEER in het bevestigingsveld." >&2
+            exit 1
+          fi
+
+  pypi:
+    needs: controleer
+    if: inputs.registries == 'alle' || inputs.registries == 'pypi'
+    runs-on: ubuntu-latest
+    environment: publiceren
+    permissions:
+      # Trusted publishing: PyPI vertrouwt deze workflow via OIDC, dus er is geen API-token en
+      # dus ook geen secret dat kan lekken of verlopen. Eenmalig in te stellen op pypi.org onder
+      # Publishing: owner WozApi, repo wozapi-clients, workflow publish.yml, environment publiceren.
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Bouwen
+        working-directory: python
+        run: |
+          python -m pip install --upgrade build
+          python -m build --outdir dist
+      - name: Controleren
+        working-directory: python
+        run: |
+          python -m pip install --upgrade twine
+          python -m twine check dist/*
+      - name: Publiceren naar PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: python/dist
+
+  npm:
+    needs: controleer
+    if: inputs.registries == 'alle' || inputs.registries == 'npm'
+    runs-on: ubuntu-latest
+    environment: publiceren
+    permissions:
+      # Provenance koppelt het pakket aantoonbaar aan deze repo en commit. Dat is zichtbaar op de
+      # npm-pagina en is precies het herkomstsignaal dat een pakket betrouwbaar maakt.
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+      - name: Publiceren naar npm
+        working-directory: node
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  nuget:
+    needs: controleer
+    if: inputs.registries == 'alle' || inputs.registries == 'nuget'
+    runs-on: ubuntu-latest
+    environment: publiceren
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+      - name: Pakket bouwen
+        working-directory: dotnet
+        run: dotnet pack -c Release -o ../nupkgs
+      - name: Publiceren naar NuGet
+        # --skip-duplicate zodat een herhaalde run op een bestaande versie niet hard faalt maar
+        # hem overslaat. Zonder dat breekt elke tweede poging op een versie die er al staat.
+        run: |
+          dotnet nuget push "nupkgs/*.nupkg" \
+            --api-key "${{ secrets.NUGET_API_KEY }}" \
+            --source https://api.nuget.org/v3/index.json \
+            --skip-duplicate
