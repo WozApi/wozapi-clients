@@ -66,14 +66,33 @@ deze clients staat op de planning; tot die tijd zet je de header zelf.
 
 Dat kan meestal niet, en dat is de reden dat deze API bestaat.
 
-- De **WOZ API Bevragen** van het Kadaster (Haal Centraal) is er alleen voor gemeenten en
-  vereist een OIN plus een PKIoverheid-certificaat.
+- De **landelijke voorziening WOZ** levert alleen aan afnemers die de wet aanwijst: gemeenten,
+  waterschappen en de Belastingdienst; bestuursorganen met een wettelijke taak; en als derde
+  groep verzekeraars, hypotheekverstrekkers en door NRVT gecertificeerde validatie-instituten.
+  Hoor je daar niet bij, dan kun je geen aansluiting krijgen, ook niet betaald.
 - Het **WOZ-waardeloket** is een raadpleegsite zonder API, en staat massaal of geautomatiseerd
   onttrekken van gegevens niet toe.
 - **WOZ+** van het Kadaster is een licentieproduct met een aansluittraject.
 
-Meer achtergrond: [Heeft het WOZ-waardeloket een
+Bronnen, gecontroleerd op 20 september 2026:
+[artikel 37a Wet waardering onroerende zaken](https://wetten.overheid.nl/BWBR0007119/2024-01-01/0/HoofdstukVI/Artikel37a/)
+voor de grondslag van de landelijke voorziening, en
+[Kadaster, WOZ voor afnemers](https://www.kadaster.nl/zakelijk/registraties/landelijke-voorzieningen/woz/woz-voor-afnemers)
+voor de afnemersindeling. Meer achtergrond: [Heeft het WOZ-waardeloket een
 API?](https://woz-api.nl/artikelen/woz-waardeloket-vs-lv-woz-vs-woz-drie-werelden-achter-een-woz-waarde)
+
+## Wat kost het
+
+EUR 0,59 per credit bij 100 credits, aflopend tot EUR 0,35 bij 1.000 credits, excl. btw. Geen
+abonnement en geen minimale afname, dus een maand zonder opvragingen kost niets. Reken je eigen
+volume door voordat je een maandbundel elders vergelijkt: een bundel wordt goedkoper per adres
+zodra je hem volmaakt, en duurder zodra je eronder blijft.
+
+Ter context bij de cijfers die je terugkrijgt: de gemiddelde WOZ-waarde van een woning in
+Nederland ging van EUR 250.000 in 2019 naar EUR 439.000 in 2026, een stijging van 75,6 procent.
+Bron: [CBS StatLine tabel 85036NED](https://opendata.cbs.nl/statline/#/CBS/nl/dataset/85036NED),
+CC BY 4.0. De reeks per provincie en gemeente staat als
+[downloadbare dataset](https://woz-api.nl/woz-waarde-ontwikkeling) op de hoofdsite.
 
 ## Documentatie en context
 
