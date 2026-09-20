@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>WozApi.Client</RootNamespace>
+
+    <!-- net8.0 en niet net9.0: dit is een clientlibrary, en die hoort te draaien in het
+         project van de gebruiker. net8.0 is LTS en werkt ook in net9-projecten; andersom niet. -->
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>WozApi.Client</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>WozApi</Authors>
+    <Company>WozApi</Company>
+    <Description>WOZ-waarde, BAG-adresgegevens en kadastrale percelen van elk Nederlands adres via 1 endpoint. Client voor woz-api.nl, zonder afhankelijkheden buiten de BCL.</Description>
+    <PackageTags>woz;woz-api;woz-waarde;bag;kadaster;nederland;vastgoed;proptech</PackageTags>
+    <PackageProjectUrl>https://woz-api.nl</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/WozApi/wozapi-clients</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Copyright>Copyright (c) 2026 WozApi</Copyright>
+
+    <!-- Deterministische, herleidbare pakketten: NuGet toont de bron-commit bij het pakket en
+         debuggers kunnen de symbolen ophalen. Dat is precies het soort herkomstsignaal dat een
+         pakketpagina betrouwbaar maakt. -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+    <None Include="..\LICENSE" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>
