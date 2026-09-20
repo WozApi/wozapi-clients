@@ -1,6 +1,6 @@
 {
   "name": "wozapi",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "WOZ-waarde, BAG-adresgegevens en kadastrale percelen van elk Nederlands adres via 1 endpoint. Client voor woz-api.nl.",
   "keywords": [
     "woz",
