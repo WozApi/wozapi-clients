@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "wozapi"
-version = "1.0.0"
+version = "1.0.1"
 description = "WOZ-waarde, BAG-adresgegevens en kadastrale percelen van elk Nederlands adres via 1 endpoint. Client voor woz-api.nl."
 readme = "README.md"
 license = { text = "MIT" }
