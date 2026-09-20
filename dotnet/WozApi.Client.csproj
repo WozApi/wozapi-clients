@@ -13,7 +13,7 @@
 
   <PropertyGroup>
     <PackageId>WozApi.Client</PackageId>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Authors>WozApi</Authors>
     <Company>WozApi</Company>
     <Description>WOZ-waarde, BAG-adresgegevens en kadastrale percelen van elk Nederlands adres via 1 endpoint. Client voor woz-api.nl, zonder afhankelijkheden buiten de BCL.</Description>
