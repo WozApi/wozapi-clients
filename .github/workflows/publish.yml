@@ -103,7 +103,11 @@ jobs:
         uses: NuGet/login@v1
         id: nuget-login
         with:
-          user: Harmenvdm
+          # De NuGet-account die het pakket bezit. Dit is de organisatie WozApi en niet
+          # het persoonlijke account, zodat het pakket op naam van het merk staat en
+          # overdraagbaar is. Moet overeenkomen met de Package Owner in de Trusted
+          # Publishing-policy op nuget.org.
+          user: WozApi
       - name: Publiceren naar NuGet
         # --skip-duplicate zodat een herhaalde run op een bestaande versie niet hard faalt maar
         # hem overslaat. Zonder dat breekt elke tweede poging op een versie die er al staat.
