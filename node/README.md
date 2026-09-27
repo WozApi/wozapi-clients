@@ -50,8 +50,8 @@ console.log(await client.credits());
 ## Wat kost het
 
 Een gratis account geeft 10 credits. 1 credit is 1 uniek adres, en hetzelfde adres binnen
-7 dagen opnieuw opvragen kost geen extra credit. De prijs per credit begint bij EUR 0,35
-excl. btw; zie [de prijzen](https://woz-api.nl/woz-api-prijs).
+7 dagen opnieuw opvragen kost geen extra credit. De prijs per credit loopt van EUR 0,59 tot
+EUR 0,30 excl. btw, afhankelijk van hoeveel je in een keer koopt; zie [de prijzen](https://woz-api.nl/woz-api-prijs).
 
 ## Documentatie
 
@@ -65,7 +65,8 @@ MIT
 
 ## Wat het kost
 
-EUR 0,59 per credit bij 100 credits, aflopend tot EUR 0,35 bij 1.000 credits, excl. btw. Geen
+EUR 0,59 per credit bij 100 credits, aflopend tot EUR 0,35 bij 1.000 credits, en EUR 0,32 en EUR 0,30
+in bundels van 2.500 en 5.000 credits, excl. btw. Geen
 abonnement en geen minimale afname, dus een maand zonder opvragingen kost niets. 1 credit is 1
 uniek adres; hetzelfde adres binnen 7 dagen opnieuw opvragen kost geen extra credit. Een gratis
 account geeft 10 credits. De staffel staat op [woz-api.nl/woz-api-prijs](https://woz-api.nl/woz-api-prijs).
