@@ -16,7 +16,7 @@
  * hetzelfde adres binnen 7 dagen opnieuw opvragen kost geen extra credit.
  */
 
-const VERSIE = '1.0.0';
+const VERSIE = '1.0.3';
 const STANDAARD_BASIS_URL = 'https://woz-api.nl';
 
 /** Fout van de WOZ API, met de HTTP-status en waar mogelijk de servermelding. */

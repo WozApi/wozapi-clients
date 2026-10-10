@@ -1,7 +1,7 @@
 # Publiceren naar PyPI, NuGet en npm
 
-Stand op 20 september 2026: **PyPI en NuGet zijn ingericht en het eerste pakket staat er.**
-Alleen npm wacht nog op een token.
+Stand op 10 oktober 2026: **PyPI, NuGet en npm zijn ingericht.** Het npm-pakket gaat over naar
+het account `wozapi` met de workflow `npm-overdracht.yml` (zie npm hieronder).
 
 ## Publiceren
 
@@ -46,49 +46,37 @@ creator, not the policy owner: No matching trust policy owned by user 'WozApi' w
 Het pakket komt nog steeds op naam van de organisatie; alleen het inwisselen van het token
 gebeurt op naam van de maker.
 
-### npm: nog een token nodig
+### npm: een token van het account wozapi
 
-npm is de enige die geen trusted publishing biedt voor dit pakket.
-
-1. [npmjs.com](https://www.npmjs.com) → avatar → **Access Tokens**
-2. **Generate New Token** → **Classic** → **Automation**. Automation is belangrijk: een
-   Publish-token vraagt bij elk gebruik om 2FA en blokkeert dan in CI.
-3. Zelf plaatsen, zodat de waarde nergens anders langskomt:
+Het pakket `wozapi` staat sinds oktober 2026 op het npm-account `wozapi` (info@woz-api.nl), met
+dat account als enige eigenaar. De workflow publiceert met het token in het geheim
+`NPM_TOKEN_WOZAPI` (omgeving `publiceren`): een granular access token van dat account met lees- en
+schrijfrecht op het pakket. Let op de vervaldatum die npm op zo'n token zet; verloopt hij, maak
+dan een nieuwe en zet hem met:
 
 ```
-gh secret set NPM_TOKEN --repo WozApi/wozapi-clients
+gh secret set NPM_TOKEN_WOZAPI --repo WozApi/wozapi-clients --env publiceren
 ```
 
 De workflow publiceert met `--provenance`, wat het pakket aantoonbaar aan deze repo en commit
 koppelt. Dat werkt alleen omdat `repository` in `node/package.json` staat; zonder dat veld
 weigert npm.
 
-**Het token kan weg, maar dat hoeft niet.** npm ondersteunt sinds 2025 ook trusted publishing,
-maar kent geen "pending publisher" zoals PyPI: de instelling zit onder de package-settings en die
-bestaan pas als het pakket er is. De eerste publicatie had dus een token nodig.
+Versie 1.0.1 en 1.0.2 zijn ingetrokken bij de overdracht naar dit account; 1.0.3 is de eerste
+versie vanaf `wozapi`. Die nummers zijn daarmee verbruikt.
 
-Overzetten is op 20 september 2026 geprobeerd en afgebroken: npm vraagt bij het opslaan om de
-tweede factor, en op deze werkplek staat geen security key of passkey geregistreerd. Chrome biedt
-dan een QR-code aan om een telefoon te gebruiken, en die route was er niet.
-
-Dat is geen probleem. `NPM_TOKEN` is een Automation-token dat alleen kan publiceren, het ligt in
-GitHub Secrets, en de workflow start uitsluitend handmatig met een bevestigingsveld. Wil je het
-alsnog opruimen, dan heb je een apparaat nodig met de npm-passkey erop:
-
-1. npmjs.com -> `wozapi` -> **Settings** -> **Trusted Publisher** -> GitHub Actions
-2. Organization `WozApi`, repository `wozapi-clients`, workflow `publish.yml`,
-   environment `publiceren`, en **Allow npm publish** aanvinken. Dat laatste is nodig omdat de
-   workflow gewoon `npm publish` draait; zonder dat vinkje staat npm alleen `npm stage publish`
-   toe en moet elke release apart op de site worden vrijgegeven.
-3. Bevestigen met je tweede factor
-4. `gh secret delete NPM_TOKEN --repo WozApi/wozapi-clients` en het token intrekken onder
-   Access Tokens
+Het token kan weg met trusted publishing: npmjs.com, pakket `wozapi`, Settings, Trusted
+Publisher, GitHub Actions, met organization `WozApi`, repository `wozapi-clients`, workflow
+`publish.yml`, environment `publiceren` en **Allow npm publish** aangevinkt. Daarvoor vraagt npm
+de tweede factor van het account `wozapi`. Daarna `gh secret delete NPM_TOKEN_WOZAPI --repo
+WozApi/wozapi-clients --env publiceren`.
 
 PyPI en NuGet hebben geen sleutel nodig; daar loopt alles al via OIDC.
 
 ## Versie verhogen
 
-Op vier plekken, en ze moeten gelijk blijven:
+Op vijf plekken, en ze moeten gelijk blijven (npm loopt sinds de overdracht een versie voor:
+1.0.3 naast 1.0.2 bij PyPI en NuGet; de volgende gezamenlijke versie is 1.0.4):
 
 | Bestand | Veld |
 |---|---|
@@ -96,6 +84,7 @@ Op vier plekken, en ze moeten gelijk blijven:
 | `python/pyproject.toml` | `version` onder `[project]` |
 | `dotnet/WozApi.Client.csproj` | `<Version>` |
 | `dotnet/WozApiClient.cs` | constante `Versie`, gaat mee in de User-Agent |
+| `node/index.js` | constante `VERSIE`, gaat mee in de User-Agent |
 
-Die laatste wordt makkelijk vergeten. Loopt hij uit de pas, dan meldt de client een andere
+De twee constanten worden makkelijk vergeten. Loopt er een uit de pas, dan meldt de client een andere
 versie dan er gepubliceerd is.

@@ -1,0 +1,102 @@
+name: npm-pakket overdragen
+
+# Eenmalig: zet het npm-pakket op het account wozapi, publiceert 1.0.3 vanaf dat account en trekt
+# 1.0.1 en 1.0.2 in. Elke stap slaat zichzelf over als hij al gedaan is, dus opnieuw draaien kan.
+# De naam van het vorige account komt nooit in de log: hij wordt gemaskeerd voordat er iets
+# wordt uitgevoerd, en de uitvoer van de eigenaarcommando's gaat naar /dev/null.
+on:
+  workflow_dispatch:
+    inputs:
+      bevestig:
+        description: "Typ OVERDRAGEN om te bevestigen (intrekken is onherroepelijk)"
+        required: true
+        type: string
+
+jobs:
+  overdragen:
+    runs-on: ubuntu-latest
+    environment: publiceren
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Bevestiging controleren
+        run: |
+          if [ "${{ inputs.bevestig }}" != "OVERDRAGEN" ]; then
+            echo "Niet bevestigd. Typ OVERDRAGEN in het bevestigingsveld." >&2
+            exit 1
+          fi
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Token van het account wozapi controleren
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_WOZAPI }}
+        run: |
+          wie=$(npm whoami 2>/dev/null || true)
+          if [ "$wie" != "wozapi" ]; then
+            echo "NPM_TOKEN_WOZAPI ontbreekt of hoort niet bij het account wozapi." >&2
+            exit 1
+          fi
+
+      - name: Eigenaarschap overdragen
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          eigenaren=$(npm owner ls wozapi 2>/dev/null | awk '{print $1}')
+          for e in $eigenaren; do echo "::add-mask::$e"; done
+          if [ "$eigenaren" = "wozapi" ]; then
+            echo "Al overgedragen."
+            exit 0
+          fi
+          oud=$(npm whoami 2>/dev/null || true)
+          if [ -z "$oud" ]; then
+            echo "Het oude token werkt niet meer, en het pakket heeft nog een andere eigenaar." >&2
+            exit 1
+          fi
+          echo "::add-mask::$oud"
+          if ! echo "$eigenaren" | grep -qx wozapi; then
+            npm owner add wozapi wozapi >/dev/null 2>&1 || { echo "Toevoegen van wozapi als eigenaar mislukte." >&2; exit 1; }
+          fi
+          npm owner rm "$oud" wozapi >/dev/null 2>&1 || { echo "Verwijderen van de vorige eigenaar mislukte." >&2; exit 1; }
+          echo "Overgedragen."
+
+      - name: 1.0.3 publiceren vanaf wozapi
+        working-directory: node
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_WOZAPI }}
+        run: |
+          versie=$(node -p "require('./package.json').version")
+          if npm view "wozapi@$versie" version >/dev/null 2>&1; then
+            echo "$versie staat er al."
+          else
+            npm publish --provenance --access public
+          fi
+
+      - name: 1.0.1 en 1.0.2 intrekken
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_WOZAPI }}
+        run: |
+          for v in 1.0.1 1.0.2; do
+            if npm view "wozapi@$v" version >/dev/null 2>&1; then
+              npm unpublish "wozapi@$v"
+            else
+              echo "$v is al ingetrokken."
+            fi
+          done
+
+      - name: Controle
+        run: |
+          sleep 20
+          curl -s https://registry.npmjs.org/wozapi | node -e '
+            const d = JSON.parse(require("fs").readFileSync(0, "utf8"));
+            const eigenaren = (d.maintainers || []).map(m => m.name);
+            const door = Object.values(d.versions || {}).map(v => (v._npmUser || {}).name);
+            const fout = eigenaren.some(n => n !== "wozapi") || door.some(n => n !== "wozapi");
+            if (fout) { console.error("Er staat nog een ander account op het pakket."); process.exit(1); }
+            console.log("Eigenaren:", eigenaren.join(", "));
+            console.log("Versies:", Object.keys(d.versions || {}).join(", "));
+          '
