@@ -1,7 +1,7 @@
 # Publiceren naar PyPI, NuGet en npm
 
 Stand op 10 oktober 2026: **PyPI, NuGet en npm zijn ingericht.** Het npm-pakket gaat over naar
-het account `wozapi` met de workflow `npm-overdracht.yml` (zie npm hieronder).
+het account `woz-api` met de workflow `npm-overdracht.yml` (zie npm hieronder).
 
 ## Publiceren
 
@@ -48,7 +48,7 @@ gebeurt op naam van de maker.
 
 ### npm: een token van het account wozapi
 
-Het pakket `wozapi` staat sinds oktober 2026 op het npm-account `wozapi` (info@woz-api.nl), met
+Het pakket `wozapi` staat sinds oktober 2026 op het npm-account `woz-api` (info@woz-api.nl; de naam `wozapi` is op npm een organisatie), met
 dat account als enige eigenaar. De workflow publiceert met het token in het geheim
 `NPM_TOKEN_WOZAPI` (omgeving `publiceren`): een granular access token van dat account met lees- en
 schrijfrecht op het pakket. Let op de vervaldatum die npm op zo'n token zet; verloopt hij, maak
@@ -63,12 +63,12 @@ koppelt. Dat werkt alleen omdat `repository` in `node/package.json` staat; zonde
 weigert npm.
 
 Versie 1.0.1 en 1.0.2 zijn ingetrokken bij de overdracht naar dit account; 1.0.3 is de eerste
-versie vanaf `wozapi`. Die nummers zijn daarmee verbruikt.
+versie vanaf `woz-api`. Die nummers zijn daarmee verbruikt.
 
 Het token kan weg met trusted publishing: npmjs.com, pakket `wozapi`, Settings, Trusted
 Publisher, GitHub Actions, met organization `WozApi`, repository `wozapi-clients`, workflow
 `publish.yml`, environment `publiceren` en **Allow npm publish** aangevinkt. Daarvoor vraagt npm
-de tweede factor van het account `wozapi`. Daarna `gh secret delete NPM_TOKEN_WOZAPI --repo
+de tweede factor van het account `woz-api`. Daarna `gh secret delete NPM_TOKEN_WOZAPI --repo
 WozApi/wozapi-clients --env publiceren`.
 
 PyPI en NuGet hebben geen sleutel nodig; daar loopt alles al via OIDC.
