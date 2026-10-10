@@ -1,7 +1,7 @@
 # Publiceren naar PyPI, NuGet en npm
 
-Stand op 10 oktober 2026: **PyPI, NuGet en npm zijn ingericht.** Het npm-pakket gaat over naar
-het account `woz-api` met de workflow `npm-overdracht.yml` (zie npm hieronder).
+Stand op 10 oktober 2026: **PyPI, NuGet en npm zijn ingericht.** Het npm-pakket is opnieuw
+opgezet onder het account `woz-api` (zie npm hieronder).
 
 ## Publiceren
 
@@ -62,8 +62,13 @@ De workflow publiceert met `--provenance`, wat het pakket aantoonbaar aan deze r
 koppelt. Dat werkt alleen omdat `repository` in `node/package.json` staat; zonder dat veld
 weigert npm.
 
-Versie 1.0.1 en 1.0.2 zijn ingetrokken bij de overdracht naar dit account; 1.0.3 is de eerste
-versie vanaf `woz-api`. Die nummers zijn daarmee verbruikt.
+In oktober 2026 is het pakket onder het vorige account in zijn geheel verwijderd en daarna
+opnieuw gepubliceerd vanaf `woz-api`, met 1.0.3 als eerste versie. 1.0.1 en 1.0.2 zijn daarmee
+verbruikt. Eigenaren overdragen met een token kan sinds augustus 2026 niet meer: npm vraagt
+daarvoor de tweede factor, interactief op de site.
+
+**Tokens die de tweede factor overslaan publiceren vanaf ongeveer januari 2027 niet meer direct**
+(github.blog/changelog, 8 juli 2026). Zet daarvoor trusted publishing aan, zoals hieronder.
 
 Het token kan weg met trusted publishing: npmjs.com, pakket `wozapi`, Settings, Trusted
 Publisher, GitHub Actions, met organization `WozApi`, repository `wozapi-clients`, workflow
