@@ -47,6 +47,14 @@ Creditsaldo opvragen:
 print(client.credits())
 ```
 
+## Een lijst adressen
+
+Een Excel of CSV met adressen per rij aanvullen met de WOZ-waarde, ook als een AI-assistent het
+script voor je schrijft: het recept staat in de
+[handleiding op woz-api.nl](https://woz-api.nl/docs#een-lijst-adressen). Een adres zonder
+WOZ-waarde kost geen credit. Zonder code kan het ook: zie
+[WOZ-waarden bij een lijst adressen in Excel](https://woz-api.nl/woz-waarden-in-excel).
+
 ## Wat kost het
 
 Een gratis account geeft 10 credits. 1 credit is 1 uniek adres, en hetzelfde adres binnen
