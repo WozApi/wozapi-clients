@@ -42,6 +42,15 @@ Een API-key maak je aan op [woz-api.nl](https://woz-api.nl). Een gratis account 
 **10 credits**; 1 credit is 1 uniek adres, en hetzelfde adres binnen 7 dagen opnieuw opvragen
 kost geen extra credit.
 
+## Een lijst adressen
+
+Een Excel of CSV met adressen per rij aanvullen met de WOZ-waarde, ook als een AI-assistent het
+script voor je schrijft: het recept staat in de
+[handleiding op woz-api.nl](https://woz-api.nl/docs#een-lijst-adressen). Een adres zonder
+WOZ-waarde kost geen credit, een fout ook niet. Zonder code kan het ook: zie
+[WOZ-waarden bij een lijst adressen in Excel](https://woz-api.nl/woz-waarden-in-excel), met een
+gratis proef van 5 adressen.
+
 ## Voor softwareleveranciers: OAuth-koppeling
 
 Bouw je software waarin JOUW klanten WOZ-waarden zien? Naast de API-key is er een
@@ -70,12 +79,12 @@ Dat kan meestal niet, en dat is de reden dat deze API bestaat.
   waterschappen en de Belastingdienst; bestuursorganen met een wettelijke taak; en als derde
   groep verzekeraars, hypotheekverstrekkers en door NRVT gecertificeerde validatie-instituten.
   Hoor je daar niet bij, dan kun je geen aansluiting krijgen, ook niet betaald.
-- Het **WOZ-waardeloket** is een raadpleegsite zonder API, en staat massaal of geautomatiseerd
-  onttrekken van gegevens niet toe.
+- Het **WOZ-waardeloket** is een raadpleegsite zonder API, gemaakt om de waarde van een woning
+  per adres in te zien.
 - **WOZ+** van het Kadaster is een licentieproduct met een aansluittraject.
 
-Bronnen, gecontroleerd op 20 september 2026:
-[artikel 37a Wet waardering onroerende zaken](https://wetten.overheid.nl/BWBR0007119/2024-01-01/0/HoofdstukVI/Artikel37a/)
+Bronnen, gecontroleerd op 12 oktober 2026:
+[artikel 37aa Wet waardering onroerende zaken](https://wetten.overheid.nl/jci1.3:c:BWBR0007119&artikel=37aa)
 voor de grondslag van de landelijke voorziening, en
 [Kadaster, WOZ voor afnemers](https://www.kadaster.nl/zakelijk/registraties/landelijke-voorzieningen/woz/woz-voor-afnemers)
 voor de afnemersindeling. Meer achtergrond: [Heeft het WOZ-waardeloket een
@@ -83,7 +92,8 @@ API?](https://woz-api.nl/artikelen/woz-waardeloket-vs-lv-woz-vs-woz-drie-werelde
 
 ## Wat kost het
 
-EUR 0,59 per credit bij 100 credits, aflopend tot EUR 0,35 bij 1.000 credits, excl. btw. Geen
+EUR 0,59 per credit bij 100 credits, aflopend tot EUR 0,35 bij 1.000 credits, en EUR 0,32 en EUR 0,30
+in bundels van 2.500 en 5.000 credits, excl. btw. Geen
 abonnement en geen minimale afname, dus een maand zonder opvragingen kost niets. Reken je eigen
 volume door voordat je een maandbundel elders vergelijkt: een bundel wordt goedkoper per adres
 zodra je hem volmaakt, en duurder zodra je eronder blijft.
