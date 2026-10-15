@@ -3,6 +3,13 @@
 Stand op 10 oktober 2026: **PyPI, NuGet en npm zijn ingericht.** Het npm-pakket is opnieuw
 opgezet onder het account `woz-api` (zie npm hieronder).
 
+**Stand op 15 oktober 2026.** PyPI 1.0.3 is gepubliceerd. NuGet 1.0.3 niet: de vertrouwensregel
+op nuget.org hoort nog bij de repository van voor 13 oktober 2026, toen deze repo opnieuw is
+aangemaakt, en het inwisselen gaf HTTP 401 ("No matching trust policy"). Herstel: log op nuget.org
+in met het account dat de regel maakte, open Trusted Publishing, en maak de regel opnieuw aan met
+de velden hieronder; draai daarna de workflow met registry `nuget`. npm staat ook nog op 1.0.2: de
+overdracht naar het account `woz-api` die hieronder staat beschreven, is nog niet gedaan.
+
 ## Publiceren
 
 **Actions → publiceer clients → Run workflow.** Kies de registries en typ `PUBLICEER` in het
