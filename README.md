@@ -54,7 +54,7 @@ gratis proef van 5 adressen.
 ## Voor softwareleveranciers: OAuth-koppeling
 
 Bouw je software waarin JOUW klanten WOZ-waarden zien? Naast de API-key is er een
-OAuth-koppeling (authorization code met PKCE): elke klant koppelt een eigen WozApi-account en
+OAuth-koppeling (authorization code met PKCE): elke klant koppelt een eigen Wozapi-account en
 betaalt eigen credits, jij stuurt het access token mee als `Authorization: Bearer`. Voor de
 leverancier is de koppeling gratis. Technische referentie:
 [wozapi.github.io/oauth.html](https://wozapi.github.io/oauth.html), productuitleg en aanvraag:
@@ -116,9 +116,9 @@ CC BY 4.0. De reeks per provincie en gemeente staat als
   gemeente](https://woz-api.nl/woz-waarde-ontwikkeling), met downloadbare dataset
 - English: [WOZ value API for Dutch properties](https://woz-api.nl/woz-value-api)
 
-## Over WozApi
+## Over Wozapi
 
-WozApi levert WOZ-, BAG- en kadastrale data via 1 endpoint, voor developers, proptech, fintech,
+Wozapi levert WOZ-, BAG- en kadastrale data via 1 endpoint, voor developers, proptech, fintech,
 makelaardij, notariaat en datateams. Bekijk de [live demo](https://woz-api.nl) of lees de
 [artikelen over WOZ-data](https://woz-api.nl/artikelen).
 

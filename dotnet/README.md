@@ -1,4 +1,4 @@
-# WozApi voor .NET
+# Wozapi voor .NET
 
 WOZ-waarde, BAG-adresgegevens en kadastrale percelen van elk Nederlands adres via 1 endpoint.
 Dunne wrapper rond de [WOZ API van woz-api.nl](https://woz-api.nl), zonder afhankelijkheden
