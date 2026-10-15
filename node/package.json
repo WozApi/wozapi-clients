@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/WozApi/wozapi-clients/issues"
   },
-  "author": "WozApi <info@woz-api.nl> (https://woz-api.nl)",
+  "author": "Wozapi <info@woz-api.nl> (https://woz-api.nl)",
   "license": "MIT",
   "type": "module",
   "main": "index.js",

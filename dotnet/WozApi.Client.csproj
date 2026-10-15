@@ -14,8 +14,8 @@
   <PropertyGroup>
     <PackageId>WozApi.Client</PackageId>
     <Version>1.0.2</Version>
-    <Authors>WozApi</Authors>
-    <Company>WozApi</Company>
+    <Authors>Wozapi</Authors>
+    <Company>Wozapi</Company>
     <Description>WOZ-waarde, BAG-adresgegevens en kadastrale percelen van elk Nederlands adres via 1 endpoint. Client voor woz-api.nl, zonder afhankelijkheden buiten de BCL.</Description>
     <PackageTags>woz;woz-api;woz-waarde;bag;kadaster;nederland;vastgoed;proptech</PackageTags>
     <PackageProjectUrl>https://woz-api.nl</PackageProjectUrl>
@@ -23,7 +23,9 @@
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Copyright>Copyright (c) 2026 WozApi</Copyright>
+    <!-- Het app-icoon van het merk (het dakje), hetzelfde bestand als assets/logo.png. -->
+    <PackageIcon>logo.png</PackageIcon>
+    <Copyright>Copyright (c) 2026 Wozapi</Copyright>
 
     <!-- Deterministische, herleidbare pakketten: NuGet toont de bron-commit bij het pakket en
          debuggers kunnen de symbolen ophalen. Dat is precies het soort herkomstsignaal dat een
@@ -38,6 +40,7 @@
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="\" />
     <None Include="..\LICENSE" Pack="true" PackagePath="\" />
+    <None Include="..\assets\logo.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>
