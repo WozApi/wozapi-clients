@@ -1,7 +1,7 @@
 # Publiceren naar PyPI, NuGet en npm
 
-Stand op 10 oktober 2026: **PyPI, NuGet en npm zijn ingericht.** Het npm-pakket is opnieuw
-opgezet onder het account `woz-api` (zie npm hieronder).
+PyPI en NuGet publiceren via trusted publishing, zonder sleutel. npm is voorbereid op het account
+`woz-api`, maar het pakket is daar nog niet naartoe (zie npm hieronder).
 
 **Stand op 15 oktober 2026.** PyPI 1.0.3 is gepubliceerd. NuGet 1.0.3 niet: de vertrouwensregel
 op nuget.org hoort nog bij de repository van voor 13 oktober 2026, toen deze repo opnieuw is
@@ -53,13 +53,19 @@ creator, not the policy owner: No matching trust policy owned by user 'WozApi' w
 Het pakket komt nog steeds op naam van de organisatie; alleen het inwisselen van het token
 gebeurt op naam van de maker.
 
-### npm: een token van het account wozapi
+### npm: nog niet overgezet naar het account woz-api
 
-Het pakket `wozapi` staat sinds oktober 2026 op het npm-account `woz-api` (info@woz-api.nl; de naam `wozapi` is op npm een organisatie), met
-dat account als enige eigenaar. De workflow publiceert met het token in het geheim
-`NPM_TOKEN_WOZAPI` (omgeving `publiceren`): een granular access token van dat account met lees- en
-schrijfrecht op het pakket. Let op de vervaldatum die npm op zo'n token zet; verloopt hij, maak
-dan een nieuwe en zet hem met:
+Het pakket `wozapi` staat met 1.0.1 en 1.0.2 (20 september 2026) nog onder het npm-account van
+daarvoor, met dat account als enige eigenaar. Het hoort op het account `woz-api` (info@woz-api.nl;
+de naam `wozapi` is op npm een organisatie), en daar is alles voor klaargezet: het token en de
+versie 1.0.3 in `node/`. De overstap zelf is nog niet gedaan. Eigenaren overdragen met een token
+kan sinds augustus 2026 niet meer: npm vraagt daarvoor de tweede factor van de huidige eigenaar,
+interactief op npmjs.com. Tot die overstap kan de workflow npm niet publiceren, want `woz-api` heeft
+geen rechten op het pakket.
+
+Na de overstap publiceert de workflow met het token in het geheim `NPM_TOKEN_WOZAPI` (omgeving
+`publiceren`): een granular access token van `woz-api` met lees- en schrijfrecht op het pakket.
+Let op de vervaldatum die npm op zo'n token zet; verloopt hij, maak dan een nieuwe en zet hem met:
 
 ```
 gh secret set NPM_TOKEN_WOZAPI --repo WozApi/wozapi-clients --env publiceren
@@ -68,11 +74,6 @@ gh secret set NPM_TOKEN_WOZAPI --repo WozApi/wozapi-clients --env publiceren
 De workflow publiceert met `--provenance`, wat het pakket aantoonbaar aan deze repo en commit
 koppelt. Dat werkt alleen omdat `repository` in `node/package.json` staat; zonder dat veld
 weigert npm.
-
-In oktober 2026 is het pakket onder het vorige account in zijn geheel verwijderd en daarna
-opnieuw gepubliceerd vanaf `woz-api`, met 1.0.3 als eerste versie. 1.0.1 en 1.0.2 zijn daarmee
-verbruikt. Eigenaren overdragen met een token kan sinds augustus 2026 niet meer: npm vraagt
-daarvoor de tweede factor, interactief op de site.
 
 **Tokens die de tweede factor overslaan publiceren vanaf ongeveer januari 2027 niet meer direct**
 (github.blog/changelog, 8 juli 2026). Zet daarvoor trusted publishing aan, zoals hieronder.
@@ -87,8 +88,9 @@ PyPI en NuGet hebben geen sleutel nodig; daar loopt alles al via OIDC.
 
 ## Versie verhogen
 
-Op vijf plekken, en ze moeten gelijk blijven (npm loopt sinds de overdracht een versie voor:
-1.0.3 naast 1.0.2 bij PyPI en NuGet; de volgende gezamenlijke versie is 1.0.4):
+Op vijf plekken, en ze moeten gelijk blijven. Alle vijf staan op 1.0.3: PyPI heeft die versie,
+NuGet en npm krijgen hem zodra hun registry weer voor de workflow open staat (zie hierboven). De
+volgende gezamenlijke versie is 1.0.4.
 
 | Bestand | Veld |
 |---|---|
