@@ -24,7 +24,7 @@ import urllib.parse
 import urllib.request
 from typing import Any
 
-__version__ = "1.0.0"
+__version__ = "1.0.3"
 __all__ = ["WozApi", "WozApiError"]
 
 STANDAARD_BASIS_URL = "https://woz-api.nl"
